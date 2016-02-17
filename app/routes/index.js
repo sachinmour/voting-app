@@ -53,6 +53,17 @@ module.exports = function(app, passport) {
         res.render('static_pages/profile.jade', {
             user : req.user // get the user out of session and pass to template
         });
+        req.user.createPoll();
+    });
+    
+    app.get('/polls', isLoggedIn, function(req, res) {
+        
+        req.user.polls(function(err, polls) {
+            if (err) throw err;
+            console.log(polls);
+        });
+        console.log(req.user.id);
+        res.end('hello');
     });
 
     // =====================================

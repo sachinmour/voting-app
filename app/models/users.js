@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-
+var Poll = require('./polls');
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 
@@ -26,7 +26,6 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     }
-
 });
 
 // methods ======================
@@ -38,6 +37,16 @@ userSchema.methods.generateHash = function(password) {
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
+};
+
+userSchema.methods.createPoll = function() {
+    var sme = new Poll({ _creator: this._id, question: "How many people", options: [{value: 4, votes: 2}, {value: 5, votes: 7}] });
+    sme.save();
+    console.log(sme);
+};
+
+userSchema.methods.polls = function(cb) {
+    return Poll.find({ _creator: this._id }).exec(cb);
 };
 
 // create the model for users and expose it to our app
