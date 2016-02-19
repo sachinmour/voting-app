@@ -9,7 +9,10 @@ var express = require('express'),
     morgan = require("morgan"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
-    session = require("express-session");
+    session = require("express-session"),
+    browserify = require('browserify'),
+    React = require('react'),
+    jsx = require('node-jsx');  
 
 var app = express();
 mongoose.connect(process.env.MONGOLAB_URI);
