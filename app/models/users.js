@@ -39,12 +39,6 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-userSchema.methods.createPoll = function() {
-    var sme = new Poll({ _creator: this._id, question: "How many people", options: [{value: 4, votes: 2}, {value: 5, votes: 7}] });
-    sme.save();
-    console.log(sme);
-};
-
 userSchema.methods.polls = function(cb) {
     return Poll.find({ _creator: this._id }).exec(cb);
 };
