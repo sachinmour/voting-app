@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGOLAB_URI);
 
 require('./config/passport')(passport);
 
-app.use(morgan('dev')); // log every request to the console
+app.use(morgan('dev'));
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json());             //
 app.use(bodyParser.urlencoded({         // get information from html forms    
