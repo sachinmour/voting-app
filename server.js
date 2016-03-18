@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({         // get information from html forms
   extended: true                        //
 }));
 
-app.set('view engine', 'jade'); // set up ejs for templating
+app.set('view engine', 'jade'); // set up jade for templating
 
 // required for passport
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch', saveUninitialized: true, resave: true })); // session secret
