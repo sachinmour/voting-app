@@ -30,7 +30,9 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch', saveUninitialized: t
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-    
+
+app.use('/assets', express.static(process.cwd() + '/views/assets'));
+
 routes(app, passport);
 
 var port = process.env.PORT || 8080;
