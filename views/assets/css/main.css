@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+body {
+  background-color: #FFFAD5;
+  margin: 0;
+}
+
+div#page {
+  width: 100%;
+  max-width: 80%;
+  margin: auto;
+}
+
+div#line {
+  height: 8px;
+  width: 100%;
+  background-color: #105B63;
+}
+
+div#header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  height: 30px;
+}
+div#header div#auth {
+  font-size: 1.2rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  justify-content: space-around;
+}
+div#auth a {
+    color: #105B63;
+}
+div#header div#local {
+  height: 100%;
+  width: 200px;
+  background-color: #105B63;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+div#header div#local span {
+  font-weight: 200;
+}
+
+div#voting {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+div#voting div#icon {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+div#voting div#icon a {
+  font-size: 6rem;
+  color: #BD4932;
+}
+div#voting div#name {
+  color: #BD4932;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+#voting #name p {
+  display: flex;
+  height: 100%;
+  padding-top: 40px;
+}
+
+#main p {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  font-size: 1.5rem;
+}
+
+#polls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.poll {
+  width: 100%;
+  background-color: #105B63;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 2px 0;
+}
