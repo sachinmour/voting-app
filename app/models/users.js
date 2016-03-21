@@ -5,9 +5,15 @@ var Poll = require('./polls');
 var userSchema = mongoose.Schema({
 
     local            : {
-        name         : String,
-        email        : String,
-        password     : String,
+        name         : {type: String,
+                        required: [true, 'Name is required']
+                        },
+        email        : {type: String,
+                        required: [true, 'Email is required']
+                        },
+        password     : {type: String,
+                        required: [true, 'Password is required']
+                        }
     },
     facebook         : {
         id           : String,
