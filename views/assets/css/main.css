@@ -9,12 +9,12 @@ a {
 
 body {
   background-color: #FFFAD5;
-  margin: 0;
+  margin: 0 !important;
 }
 
 div#page {
   width: 100%;
-  max-width: 80%;
+  max-width: 960px;
   margin: auto;
 }
 
@@ -39,8 +39,8 @@ div#header div#auth {
   width: 100px;
   justify-content: space-around;
 }
-div#auth a {
-    color: #105B63;
+div#header div#auth a {
+  color: #105B63;
 }
 div#header div#local {
   height: 100%;
@@ -55,6 +55,26 @@ div#header div#local {
 }
 div#header div#local span {
   font-weight: 200;
+}
+
+div#authenticated {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+div#authenticated a {
+  padding: 10px;
+  background-color: #105B63;
+  color: white;
+  cursor: pointer;
+}
+div#authenticated #dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 div#voting {
@@ -81,31 +101,35 @@ div#voting div#name {
   justify-content: center;
   font-size: 3rem;
 }
-#voting #name p {
+div#voting div#name p {
   display: flex;
   height: 100%;
   padding-top: 40px;
 }
 
-#main p {
+div#main p {
   display: flex;
   justify-content: center;
   margin: auto;
   font-size: 1.5rem;
 }
 
-#polls {
+ul#polls {
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0;
 }
 
-.poll {
+a.poll {
   width: 100%;
   background-color: #105B63;
   color: white;
   display: flex;
   justify-content: center;
   margin: 2px 0;
+}
+
+.hidden {
+  display: none !important;
 }

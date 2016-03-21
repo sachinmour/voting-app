@@ -4,25 +4,50 @@ html
     title freeCodeCamp VOTING APP
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/assets/css/main.css')
+    script(type='text/javascript', src='https://code.jquery.com/jquery-2.2.2.min.js')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js')
   body
     #line
     #page
-      #header
-        #auth
-          a 
-            i.fa.fa-facebook
-          a 
-            i.fa.fa-twitter
-          a 
-            i.fa.fa-google
-        #local
-          p 
-            a(href="/login")
-              | LOGIN 
-            span or 
-            a(href="/signup")
-              | REGISTER
+      if !user
+        #header
+          #auth
+            a 
+              i.fa.fa-facebook
+            a 
+              i.fa.fa-twitter
+            a 
+              i.fa.fa-google
+          #local
+            p 
+              a(href="/login")
+                | LOGIN 
+              span or 
+              a(href="/signup")
+                | REGISTER
+      else
+        #authenticated
+          a(href="/polls")
+            | My Polls
+          a(href="/poll/new")
+            | New Poll
+          a
+            - if (user.local.name)
+                | #{user.local.name}
+            - else if (user.facebook.name)
+                | #{user.facebook.name}
+            - else if (user.twitter.displayName)
+                | #{user.twitter.displayName}
+            - else if (user.google.name)
+                | #{user.google.name}
+            span
+              |  
+              i.fa.fa-caret-down
+          #dropdown.hidden
+            a(href="/profile")
+              | Profile
+            a(href="/logout")
+              | Log Out
       #voting
         #icon
           a
@@ -39,3 +64,4 @@ html
           a.poll(href="/poll/#{value._id}")
             p= value.question
             
+    script(type='text/javascript', src='assets/javascript/main.js')

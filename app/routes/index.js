@@ -12,7 +12,6 @@ module.exports = function(app, passport) {
             if (req.isAuthenticated()) {
                 user = req.user;
             }
-            console.log(user);
             res.render('static_pages/index.jade', {data: data, user: user}); // load the index.jade file
         });
     });
@@ -29,7 +28,7 @@ module.exports = function(app, passport) {
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/polls', // redirect to the secure profile section
+        successRedirect : '/', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -61,7 +60,6 @@ module.exports = function(app, passport) {
         res.render('static_pages/profile.jade', {
             user : req.user // get the user out of session and pass to template
         });
-        console.log(req.user);
     });
     
     app.get('/poll/:id', isLoggedIn, function(req, res) {
