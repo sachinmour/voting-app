@@ -1,12 +1,20 @@
 'use strict';
-
+var Poll = require('../models/polls');
 module.exports = function(app, passport) {
 
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('static_pages/index.jade'); // load the index.ejs file
+        Poll.find({}, 'question', function(err, data) {
+            if (err) throw err;
+            var user = undefined;
+            if (req.isAuthenticated()) {
+                user = req.user;
+            }
+            console.log(user);
+            res.render('static_pages/index.jade', {data: data, user: user}); // load the index.jade file
+        });
     });
 
     // =====================================
@@ -56,7 +64,7 @@ module.exports = function(app, passport) {
         console.log(req.user);
     });
     
-    app.get('/polls', isLoggedIn, function(req, res) {
+    app.get('/poll/:id', isLoggedIn, function(req, res) {
         
         req.user.polls(function(err, polls) {
             if (err) throw err;

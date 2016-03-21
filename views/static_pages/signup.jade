@@ -20,6 +20,9 @@ html
         // LOGIN FORM
         form(action='/signup', method='post')
           .form-group
+            label Name
+            input.form-control(type='text', name='name')
+          .form-group
             label Email
             input.form-control(type='text', name='email')
           .form-group

@@ -35,7 +35,7 @@ html
           | Select a poll to see the results and vote, or sign-in to make a new poll.
       hr
       ul#polls
-        a.poll
-          p Who is your favourite super hero?
-        a.poll
-          p Who is your favourite super hero?
+        each value in data
+          a.poll(href="/poll/#{value._id}")
+            p= value.question
+            
