@@ -62,6 +62,12 @@ module.exports = function(app, passport) {
         });
     });
     
+    app.get('/poll/new', isLoggedIn, function(req, res) {
+        res.render('static_pages/new_poll.jade', {
+            user: req.user
+        });
+    });
+    
     app.get('/poll/:id', isLoggedIn, function(req, res) {
         
         req.user.polls(function(err, polls) {
