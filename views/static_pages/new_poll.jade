@@ -9,7 +9,20 @@ block content
         | VOTE
   #main
     p
-      | Select a poll to see the results and vote, or sign-in to make a new poll.
+      | New Poll
   hr
-  ul#polls
+  if message
+    .alert.alert-danger= message
+  form(action='/poll/new', method='post')
+    .form-group
+      label Question
+      input(type='text', name='question')
+    .form-group
+      label Options
+      input.short(type='text', name='option', required)
+      input.short(type='text', name='option', required)
+    #var
+      button.button-success.pure-button.small-button() -
+      button.button-success.pure-button.small-button() +
+    button.button-success.pure-button(type='submit') Create
   script(type='text/javascript', src='/assets/javascript/main.js')
