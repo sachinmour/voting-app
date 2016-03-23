@@ -153,7 +153,7 @@ form {
   font-size: 1.2rem;
 }
 
-input[type="text"] {
+input[type="text"], select {
   display: flex;
   margin: 5px;
   width: 50%;
@@ -163,19 +163,23 @@ input[type="text"] {
   box-shadow: none;
   border-radius: 5px;
 }
-input[type="text"]:focus {
+input[type="text"]:focus, select:focus {
   outline: none;
 }
 
-input[type="text"] {
+input[type="text"], select {
   padding: 10px;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
 }
 input[type="text"]:focus,
-input[type="text"].focus {
+input[type="text"].focus, select:focus {
   border: solid 1px #707070;
   box-shadow: 0 0 5px 1px #969696;
+}
+
+select {
+  margin-top: 20px;
 }
 .short {
   width: 35% !important;
@@ -274,4 +278,8 @@ button.small-button {
 }
 .alert-danger .alert-link {
   color: #843534;
+}
+canvas {
+  display: flex;
+  margin: auto;
 }

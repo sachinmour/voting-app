@@ -2,6 +2,7 @@
 var Poll = require('../models/polls');
 var PollHandler = require('../controllers/pollHandler.js');
 var pollHandler = new PollHandler();
+var mongoose = require('mongoose');
 
 module.exports = function(app, passport) {
 
@@ -78,19 +79,43 @@ module.exports = function(app, passport) {
     
     app.get('/poll/:id', function(req, res) {
         
-        Poll.find({_id: req.params.id}, function(err, data) {
-            if (err) throw err;
-            console.log(data);
-            res.render('static_pages/index.jade', {data: data}); // load the index.jade file
-        });
-        return;
-        req.user.polls(function(err, polls) {
-            if (err) throw err;
-            var x = polls;
-            console.log(x[0].options);
-        });
-        console.log(req.user.id);
-        res.end('hello');
+        var id = req.params.id;
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Poll.findOne({_id: id}, function(err, data) {
+                if (err) throw err;
+                var labels = [];
+                var question = data.question;
+                var values = [];
+                for (var i = 0; i<data.options.length; i++ ) {
+                    labels.push(data.options[i].value);
+                    values.push(data.options[i].votes);
+                }
+                res.render('static_pages/poll.jade', {labels: JSON.stringify(labels), values: JSON.stringify(values), user: req.user, question: question, id: data._id}); // load the index.jade file
+            });
+        } else {
+            res.redirect('/');
+        }
+    });
+    
+    app.post('/vote/:id', function(req, res) {
+        var id = req.params.id;
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Poll.findOne({_id: id}, function(err, poll) {
+                if (err) throw err;
+                for (var i in poll.options) {
+                    if (poll.options[i].value === req.body.option) {
+                        poll.options[i].votes += 1;
+                        poll.save(function(err, poll) {
+                            if (err) throw err;
+                            res.json(poll.options[i]);
+                        });
+                        return;
+                    }
+                }
+            });
+        } else {
+            res.redirect('/');
+        }
     });
 
     // =====================================

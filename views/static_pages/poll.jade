@@ -1,0 +1,52 @@
+extends ./header.jade
+block content
+  #voting
+    #icon
+      a
+        i.fa.fa-thumbs-up
+    #name
+      p
+        | VOTE
+  #main
+    p
+      | #{question}
+  hr
+  canvas#myChart(height="300")
+  
+  form(action='/vote/#{id}', method='post')
+    .form-group
+      label I'd like to vote for
+      select(name="option")
+        - var options = JSON.parse(labels);
+        - for (var i = 0; i< options.length; i++)
+          option(value="#{options[i]}")= options[i]
+    button.button-success.pure-button(type='submit') Vote
+    
+  script.
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var data = {
+        labels: !{labels},
+        datasets: [
+            {
+                fillColor: "rgba(16,91,99,0.5)",
+                strokeColor: "rgba(16,91,99,0.8)",
+                highlightFill: "rgba(16,91,99,0.75)",
+                highlightStroke: "rgba(16,91,99,1)",
+                data: !{values}
+            }
+        ]
+    };
+    var votingChart = new Chart(ctx).Bar(data);
+    var changeChart = function(option) {
+      console.log(votingChart);
+      for (var i in votingChart.datasets[0].bars) {
+          if (votingChart.datasets[0].bars[i].label === option.value) {
+              votingChart.datasets[0].bars[i].value = option.votes;
+              votingChart.update();
+              return;
+          }
+      }
+    }
+    
+  script(type='text/javascript', src='/assets/javascript/main.js')
+  script(type='text/javascript', src='/assets/javascript/vote.js')
