@@ -24,6 +24,9 @@ block content
         - for (var i = 0; i< options.length; i++)
           option(value="#{options[i]}")= options[i]
     button.button-success.pure-button(type='submit') Vote
+  a.button-success.pure-button.twitter-share-button(target="_blank", href="https://twitter.com/intent/tweet?url=#{path}&text=#{question} vote now!!")
+    i.fa.fa-twitter
+    |   Share on Twitter
     
   script.
     var ctx = document.getElementById("myChart").getContext("2d");

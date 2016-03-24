@@ -93,7 +93,8 @@ module.exports = function(app, passport) {
                 if (req.user && req.user._id.toString() === data._creator.toString()) {
                     allowed = true;
                 }
-                res.render('static_pages/poll.jade', {allowed: allowed, labels: JSON.stringify(labels), values: JSON.stringify(values), user: req.user, question: question, id: data._id}); // load the index.jade file
+                var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                res.render('static_pages/poll.jade', {path: fullUrl, allowed: allowed, labels: JSON.stringify(labels), values: JSON.stringify(values), user: req.user, question: question, id: data._id}); // load the index.jade file
             });
         } else {
             res.redirect('/');
@@ -110,7 +111,7 @@ module.exports = function(app, passport) {
                     data.remove(function(err) {
                         if (err) throw err;
                     });
-                    res.redirect('/mypolls');
+                    res.redirect('/polls');
                 } else {
                     res.redirect('/logout');
                 }
@@ -142,7 +143,7 @@ module.exports = function(app, passport) {
         }
     });
     
-    app.get('/mypolls',isLoggedIn, function(req, res) {
+    app.get('/polls',isLoggedIn, function(req, res) {
         req.user.polls(function(err, data) {
             if (err) throw err;
             res.render('static_pages/my_polls.jade', {data: data, user: req.user});
