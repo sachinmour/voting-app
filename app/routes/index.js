@@ -89,11 +89,36 @@ module.exports = function(app, passport) {
                     labels.push(data.options[i].value);
                     values.push(data.options[i].votes);
                 }
-                res.render('static_pages/poll.jade', {labels: JSON.stringify(labels), values: JSON.stringify(values), user: req.user, question: question, id: data._id}); // load the index.jade file
+                var allowed = false;
+                if (req.user && req.user._id.toString() === data._creator.toString()) {
+                    allowed = true;
+                }
+                res.render('static_pages/poll.jade', {allowed: allowed, labels: JSON.stringify(labels), values: JSON.stringify(values), user: req.user, question: question, id: data._id}); // load the index.jade file
             });
         } else {
             res.redirect('/');
         }
+    });
+    
+    app.post('/delete/:id', isLoggedIn, function(req, res) {
+        
+        var id = req.params.id;
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            Poll.findOne({_id: id}, function(err, data) {
+                if (err) throw err;
+                if (req.user._id.toString() === data._creator.toString()) {
+                    data.remove(function(err) {
+                        if (err) throw err;
+                    });
+                    res.redirect('/mypolls');
+                } else {
+                    res.redirect('/logout');
+                }
+            });
+        } else {
+            res.redirect('/logout');
+        }
+        
     });
     
     app.post('/vote/:id', function(req, res) {
@@ -120,8 +145,7 @@ module.exports = function(app, passport) {
     app.get('/mypolls',isLoggedIn, function(req, res) {
         req.user.polls(function(err, data) {
             if (err) throw err;
-            console.log(data);
-            res.render('static_pages/my_poll.jade', {data: data, user: req.user});
+            res.render('static_pages/my_polls.jade', {data: data, user: req.user});
         });
     });
 

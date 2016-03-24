@@ -284,3 +284,18 @@ canvas {
   margin: auto;
   max-width: 100%;
 }
+
+div#main {
+  display: flex;
+  position: relative;
+}
+div#main form {
+  position: absolute;
+  right: 0;
+  margin-bottom: 5px;
+}
+div#main form button {
+  position: absolute;
+  right: 0;
+  margin-top: -5px;
+}

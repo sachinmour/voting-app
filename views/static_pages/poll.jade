@@ -10,10 +10,13 @@ block content
   #main
     p
       | #{question}
+    if allowed
+      form(action='/delete/#{id}',method='post')
+        button.button-success.pure-button(type='submit') Delete
   hr
   canvas#myChart(height="300")
   
-  form(action='/vote/#{id}', method='post')
+  form#vote(action='/vote/#{id}', method='post')
     .form-group
       label I'd like to vote for
       select(name="option")

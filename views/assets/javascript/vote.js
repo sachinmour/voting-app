@@ -1,13 +1,13 @@
 $(function() {
 
-    $("form").submit(function(e) {
+    $("form#vote").submit(function(e) {
 
-        var url = $('form').attr('action'); // the script where you handle the form input.
+        var url = $('form#vote').attr('action'); // the script where you handle the form input.
         
         $.ajax({
                type: "POST",
                url: url,
-               data: $("form").serialize(), // serializes the form's elements.
+               data: $("form#vote").serialize(), // serializes the form's elements.
                success: function(data)
                {
                    changeChart(data); // show response from the php script.
@@ -15,7 +15,7 @@ $(function() {
              });
     
         e.preventDefault(); // avoid to execute the actual submit of the form.
-        $('form button').prop('disabled', true);
+        $('form#vote button').prop('disabled', true);
     });
 
 });
