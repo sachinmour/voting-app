@@ -24,6 +24,9 @@ block content
     
   script.
     var ctx = document.getElementById("myChart").getContext("2d");
+    var width = !{labels}.length*80 + "px";
+    $('canvas').css('width', width);
+    $('canvas').css('height', '300px');
     var data = {
         labels: !{labels},
         datasets: [

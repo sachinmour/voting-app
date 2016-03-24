@@ -73,7 +73,6 @@ module.exports = function(app, passport) {
     });
     
     app.post('/poll/new', isLoggedIn, function(req, res) {
-        console.log(req.body);
         pollHandler.createPoll(req, res);
     });
     
@@ -116,6 +115,14 @@ module.exports = function(app, passport) {
         } else {
             res.redirect('/');
         }
+    });
+    
+    app.get('/mypolls',isLoggedIn, function(req, res) {
+        req.user.polls(function(err, data) {
+            if (err) throw err;
+            console.log(data);
+            res.render('static_pages/my_poll.jade', {data: data, user: req.user});
+        });
     });
 
     // =====================================
